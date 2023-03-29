@@ -1,4 +1,4 @@
-import Boxes from '@/components/Boxes';
+import Grid from '@/components/Grid';
 import Keyboard from '@/components/Keyboard';
 import Shell from '@/shells/Shell';
 import { MAX_CHALLENGES, WORD_LENGHT } from '@/utils';
@@ -43,12 +43,17 @@ export default function Home() {
   return (
     <Shell>
       <header className="flex justify-center items-center text-white p-2  h-[var(--header-height)] ">
-        <h1 className="text-3xl">WORDLE</h1>
+        <h1 className="text-2xl">WORDLE</h1>
       </header>
 
-      <div className="flex flex-col items-center justify-between h-[calc(100%-var(--header-height))]">
-        <span></span>
-        <Boxes guesses={guesses} currentGuess={currentGuess} />
+      <div className="grid grid-rows-4 grid-flow-row h-[calc(100%-var(--header-height))] justify-center">
+        <div className="row-span-3 flex justify-center">
+          <Grid
+            guesses={guesses}
+            currentGuess={currentGuess}
+            toGuess={toGuess}
+          />
+        </div>
         <Keyboard
           toGuess={toGuess}
           guesses={guesses}

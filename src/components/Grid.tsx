@@ -6,18 +6,19 @@ import EmptyRow from './EmptyRow';
 type Props = {
   guesses: string[];
   currentGuess: string;
+  toGuess: string;
 };
 
-const Boxes: React.FC<Props> = ({ guesses, currentGuess }) => {
+const Grid: React.FC<Props> = ({ guesses, currentGuess, toGuess }) => {
   const empties =
     guesses.length < MAX_CHALLENGES - 1
       ? Array.from({ length: MAX_CHALLENGES - guesses.length - 1 })
       : [];
 
   return (
-    <div className="max-w-[500px] w-[500px] ">
+    <div className="max-w-[450px] w-[450px]">
       {guesses.map((guess, index) => (
-        <CompletedRow key={index} guess={guess} />
+        <CompletedRow key={index} guess={guess} toGuess={toGuess} />
       ))}
 
       {guesses.length < MAX_CHALLENGES ? (
@@ -31,4 +32,4 @@ const Boxes: React.FC<Props> = ({ guesses, currentGuess }) => {
   );
 };
 
-export default Boxes;
+export default Grid;

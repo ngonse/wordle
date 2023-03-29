@@ -61,7 +61,7 @@ const Keyboard: React.FC<Props> = ({
   });
 
   return (
-    <div className="grid grid-rows-3 mb-10">
+    <div className="grid grid-rows-3 mb-3">
       {letters.split('_').map((rowLetters) => (
         <div key={rowLetters} className="flex justify-center gap-2 mb-2">
           {rowLetters.split('').map((letter) => {
@@ -75,22 +75,11 @@ const Keyboard: React.FC<Props> = ({
 
             const status = keyStatus[letter];
 
-            console.log(status);
-
             const clasess = `
-            ${!status && 'bg-gray-100 border-gray-300 hover:bg-gray-200'}
-            ${
-              status === 'nope' &&
-              'bg-gray-600 border-gray-900 hover:bg-gray-500'
-            }
-            ${
-              status === 'yep' &&
-              'bg-yellow-300 border-yellow-400 hover:bg-yellow-100'
-            }
-            ${
-              status === 'correct' &&
-              'bg-green-600 border-green-600 hover:bg-green-500'
-            }`;
+            ${!status && 'bg-gray-100 hover:bg-gray-200'}
+            ${status === 'absent' && 'bg-wordle-absent hover:bg-gray-500'}
+            ${status === 'present' && 'bg-wordle-present hover:bg-yellow-100'}
+            ${status === 'correct' && 'bg-wordle-correct hover:bg-green-500'}`;
 
             return (
               <button
@@ -98,7 +87,7 @@ const Keyboard: React.FC<Props> = ({
                 onClick={() => handleButtonClick(label)}
                 className={`${
                   label.length > 1 ? '' : 'aspect-square'
-                } ${clasess} p-3 text-xl text-center border rounded-md focus:outline-none h-full`}
+                } ${clasess} px-3 text-xl text-center rounded-md focus:outline-none`}
               >
                 <kbd>{label.toUpperCase()}</kbd>
               </button>

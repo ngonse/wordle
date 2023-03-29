@@ -14,6 +14,7 @@ const CurrentRow: React.FC<Props> = ({ currentGuess }) => {
       {currentGuess.split('').map((val, index) => (
         <Cell key={index} value={val} />
       ))}
+
       {Array.from({ length: empty }, (_, index) => (
         <Cell key={index} />
       ))}
