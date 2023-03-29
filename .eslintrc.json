@@ -1,3 +1,39 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": ["next/core-web-vitals", "airbnb-typescript/base"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module",
+    "project": "./tsconfig.json"
+  },
+  "plugins": ["@typescript-eslint", "prettier"],
+  "rules": {
+    // Evita el uso de variables no utilizadas
+    "@typescript-eslint/no-unused-vars": "error",
+
+    // Permite el uso de funciones async sin await
+    "@typescript-eslint/require-await": "off",
+
+    // Permite el uso de funciones sin retorno
+    "@typescript-eslint/explicit-function-return-type": "off",
+
+    // Permite el uso de funciones sin tipo de retorno especificado
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+
+    // Permite el uso de variables no camelCase
+    "@typescript-eslint/camelcase": "off",
+
+    // Permite el uso de funciones sin parámetros
+    "@typescript-eslint/no-empty-function": "off",
+
+    // Permite el uso de variables con nombres que empiezan con _
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        "selector": "variable",
+        "format": ["camelCase", "PascalCase", "snake_case", "UPPER_CASE"],
+        "leadingUnderscore": "allow"
+      }
+    ]
+  }
 }
