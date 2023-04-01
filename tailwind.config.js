@@ -7,7 +7,7 @@ module.exports = {
       colors: {
         'wordle-correct': '#5cb85c',
         'wordle-present': '#f0ad4e',
-        'wordle-absent': '#d6d6d6',
+        'wordle-absent': '#b0b0b0',
       },
     },
   },
