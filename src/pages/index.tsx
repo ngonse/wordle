@@ -3,16 +3,17 @@ import Keyboard from '@/components/Keyboard';
 import Shell from '@/shells/Shell';
 import { MAX_CHALLENGES, WORD_LENGHT } from '@/utils';
 import { useState } from 'react';
-
+import { getTodayWord } from '@/utils/words';
 const toGuess = 'casas';
 
 export default function Home() {
   const [guesses, setGuesses] = useState<string[]>([]);
   const [currentGuess, setCurrentGuess] = useState('');
 
+  console.log(getTodayWord());
+
   const onEnter = () => {
     if (currentGuess.length !== WORD_LENGHT) {
-      console.log('todavia no mi rey');
       return;
     }
 

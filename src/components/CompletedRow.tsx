@@ -10,8 +10,6 @@ type Props = {
 const CompletedRow: React.FC<Props> = ({ guess, toGuess }) => {
   const statuses = getKeyCompletedStatus(toGuess, guess);
 
-  console.log(statuses);
-
   return (
     <Row>
       {guess.split('').map((val, index) => {
