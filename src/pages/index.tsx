@@ -1,45 +1,46 @@
+import { useEffect } from 'react';
+import { serialize } from 'cookie';
+import { GetServerSideProps } from 'next';
+
+import { WORD_OF_THE_DAY_COOKIE } from '@/utils';
 import Grid from '@/components/Grid';
 import Keyboard from '@/components/Keyboard';
-import Shell from '@/shells/Shell';
-import { MAX_CHALLENGES, WORD_LENGHT } from '@/utils';
-import { useState } from 'react';
 import { getTodayWord } from '@/utils/words';
-const toGuess = 'casas';
+import Shell from '@/shells/Shell';
+import { useGuessStore } from '@/store/guess-store';
 
-export default function Home() {
-  const [guesses, setGuesses] = useState<string[]>([]);
-  const [currentGuess, setCurrentGuess] = useState('');
+import words from '@/words.json';
 
-  console.log(getTodayWord());
+type Props = {
+  words: string[];
+  word: string;
+};
+
+export default function Home({ words, word: toGuess }: Props) {
+  const {
+    addGuess,
+    setWord,
+    setWords,
+    addCurrentGuessKey,
+    delCurrentGuessKey,
+  } = useGuessStore();
 
   const onEnter = () => {
-    if (currentGuess.length !== WORD_LENGHT) {
-      return;
-    }
-
-    if (guesses.length >= MAX_CHALLENGES) {
-      return;
-    }
-
-    setGuesses((prev) => [...prev, currentGuess]);
-    setCurrentGuess('');
+    addGuess();
   };
 
   const onKeyPress = (char: string) => {
-    if (currentGuess.length === WORD_LENGHT) {
-      return;
-    }
-
-    setCurrentGuess((prev) => `${prev}${char}`);
+    addCurrentGuessKey(char);
   };
 
   const onDelete = () => {
-    if (!currentGuess.length) {
-      return;
-    }
-
-    setCurrentGuess(currentGuess.split('').slice(0, -1).join(''));
+    delCurrentGuessKey();
   };
+
+  useEffect(() => {
+    setWord(toGuess);
+    setWords(words);
+  }, []);
 
   return (
     <Shell>
@@ -49,15 +50,9 @@ export default function Home() {
 
       <div className="grid grid-rows-4 grid-flow-row h-[calc(100%-var(--header-height))] justify-center">
         <div className="row-span-3 flex justify-center">
-          <Grid
-            guesses={guesses}
-            currentGuess={currentGuess}
-            toGuess={toGuess}
-          />
+          <Grid />
         </div>
         <Keyboard
-          toGuess={toGuess}
-          guesses={guesses}
           onEnter={onEnter}
           onKeyPress={onKeyPress}
           onDelete={onDelete}
@@ -66,3 +61,35 @@ export default function Home() {
     </Shell>
   );
 }
+
+export const getServerSideProps: GetServerSideProps<Props> = async ({
+  req,
+  res,
+}) => {
+  let wordCokkie = req.cookies[WORD_OF_THE_DAY_COOKIE];
+
+  if (!wordCokkie) {
+    const todayWord = getTodayWord();
+    wordCokkie = Buffer.from(todayWord).toString('base64');
+
+    res.setHeader(
+      'Set-Cookie',
+      serialize(WORD_OF_THE_DAY_COOKIE, wordCokkie, {
+        httpOnly: true,
+        secure: true,
+        path: '/',
+        sameSite: 'strict',
+        expires: new Date(Date.now() + 1000 * 60 * 60 * 24), // 1 day
+      }),
+    );
+  }
+
+  console.log(Buffer.from(wordCokkie, 'base64').toString());
+
+  return {
+    props: {
+      words,
+      word: wordCokkie,
+    },
+  };
+};

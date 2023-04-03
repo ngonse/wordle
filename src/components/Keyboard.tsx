@@ -1,9 +1,8 @@
+import { useGuessStore } from '@/store/guess-store';
 import { getKeyStatus } from '@/utils/get-key-status';
 import { useEffect } from 'react';
 
 type Props = {
-  toGuess: string;
-  guesses: string[];
   onEnter: () => void;
   onKeyPress: (char: string) => void;
   onDelete: () => void;
@@ -11,14 +10,10 @@ type Props = {
 
 const letters = 'qwertyuiop_asdfghjklñ_<zxcvbnm>';
 
-const Keyboard: React.FC<Props> = ({
-  toGuess,
-  guesses,
-  onKeyPress,
-  onEnter,
-  onDelete,
-}) => {
-  const keyStatus = getKeyStatus(toGuess, guesses);
+const Keyboard: React.FC<Props> = ({ onKeyPress, onEnter, onDelete }) => {
+  const { guesses, getTodayWordStored } = useGuessStore();
+
+  const keyStatus = getKeyStatus(getTodayWordStored(), guesses);
 
   const handleButtonClick = (value: string) => {
     if (value === 'DEL') {

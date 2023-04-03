@@ -1,15 +1,12 @@
-import { MAX_CHALLENGES } from '@/utils';
 import CompletedRow from './CompletedRow';
 import CurrentRow from './CurrentRow';
 import EmptyRow from './EmptyRow';
+import { useGuessStore } from '@/store/guess-store';
+import { MAX_CHALLENGES } from '@/utils';
 
-type Props = {
-  guesses: string[];
-  currentGuess: string;
-  toGuess: string;
-};
+const Grid = () => {
+  const { guesses } = useGuessStore();
 
-const Grid: React.FC<Props> = ({ guesses, currentGuess, toGuess }) => {
   const empties =
     guesses.length < MAX_CHALLENGES - 1
       ? Array.from({ length: MAX_CHALLENGES - guesses.length - 1 })
@@ -18,12 +15,10 @@ const Grid: React.FC<Props> = ({ guesses, currentGuess, toGuess }) => {
   return (
     <div className="max-w-[450px] w-[450px]">
       {guesses.map((guess, index) => (
-        <CompletedRow key={index} guess={guess} toGuess={toGuess} />
+        <CompletedRow key={index} guess={guess} />
       ))}
 
-      {guesses.length < MAX_CHALLENGES ? (
-        <CurrentRow currentGuess={currentGuess} />
-      ) : null}
+      {guesses.length < MAX_CHALLENGES ? <CurrentRow /> : null}
 
       {empties.map((_, index) => (
         <EmptyRow key={index} />

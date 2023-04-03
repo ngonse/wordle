@@ -1,12 +1,11 @@
-import { WORD_LENGHT } from '@/utils';
 import Cell from './Cell';
 import Row from './Row';
+import { WORD_LENGHT } from '@/utils';
+import { useGuessStore } from '@/store/guess-store';
 
-type Props = {
-  currentGuess: string;
-};
+const CurrentRow = () => {
+  const { currentGuess } = useGuessStore();
 
-const CurrentRow: React.FC<Props> = ({ currentGuess }) => {
   const empty = WORD_LENGHT - currentGuess.length;
 
   return (

@@ -1,14 +1,16 @@
-import { getKeyCompletedStatus } from '@/utils/get-key-status';
 import Cell from './Cell';
 import Row from './Row';
+import { getKeyCompletedStatus } from '@/utils/get-key-status';
+import { useGuessStore } from '@/store/guess-store';
 
 type Props = {
   guess: string;
-  toGuess: string;
 };
 
-const CompletedRow: React.FC<Props> = ({ guess, toGuess }) => {
-  const statuses = getKeyCompletedStatus(toGuess, guess);
+const CompletedRow: React.FC<Props> = ({ guess }) => {
+  const { getTodayWordStored } = useGuessStore();
+
+  const statuses = getKeyCompletedStatus(getTodayWordStored(), guess);
 
   return (
     <Row>

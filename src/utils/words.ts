@@ -6,5 +6,9 @@ export const getTodayWord = () => {
   const index = Math.floor(Math.random() * quantity);
   const word = words[index];
 
-  console.log({ word, index });
+  return word;
+};
+
+export const getTodayWordStored = (word: string) => {
+  return Buffer.from(word, 'base64').toString();
 };
