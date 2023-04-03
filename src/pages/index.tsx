@@ -1,8 +1,8 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { serialize } from 'cookie';
 import { GetServerSideProps } from 'next';
 
-import { WORD_OF_THE_DAY_COOKIE } from '@/utils';
+import { MAX_CHALLENGES, WORD_LENGHT, WORD_OF_THE_DAY_COOKIE } from '@/utils';
 import Grid from '@/components/Grid';
 import Keyboard from '@/components/Keyboard';
 import { getTodayWord } from '@/utils/words';
@@ -18,14 +18,30 @@ type Props = {
 
 export default function Home({ words, word: toGuess }: Props) {
   const {
+    currentGuess,
+    guesses,
+    incorrectWord,
     addGuess,
     setWord,
     setWords,
     addCurrentGuessKey,
     delCurrentGuessKey,
+    setIncorrectWord,
   } = useGuessStore();
 
   const onEnter = () => {
+    if (currentGuess.length !== WORD_LENGHT) {
+      return;
+    }
+
+    if (guesses.length >= MAX_CHALLENGES) {
+      return;
+    }
+
+    if (!words.includes(currentGuess)) {
+      setIncorrectWord(true);
+      return;
+    }
     addGuess();
   };
 
@@ -38,6 +54,16 @@ export default function Home({ words, word: toGuess }: Props) {
   };
 
   useEffect(() => {
+    const timeout = setTimeout(() => {
+      setIncorrectWord(false);
+    }, 1500);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  });
+
+  useEffect(() => {
     setWord(toGuess);
     setWords(words);
   }, []);
@@ -46,6 +72,17 @@ export default function Home({ words, word: toGuess }: Props) {
     <Shell>
       <header className="flex justify-center items-center text-white p-2  h-[var(--header-height)] ">
         <h1 className="text-2xl">WORDLE</h1>
+
+        {incorrectWord ? (
+          <div
+            className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded absolute move-down"
+            role="alert"
+          >
+            <span className="block sm:inline">
+              La palabra no esta en la lista
+            </span>
+          </div>
+        ) : null}
       </header>
 
       <div className="grid grid-rows-4 grid-flow-row h-[calc(100%-var(--header-height))] justify-center">

@@ -7,12 +7,14 @@ type State = {
   words: string[];
   currentGuess: string;
   guesses: string[];
+  incorrectWord: boolean;
   setWord: (word: string) => void;
   setWords: (words: string[]) => void;
   addCurrentGuessKey: (key: string) => void;
   delCurrentGuessKey: () => void;
   addGuess: () => void;
   getTodayWordStored: () => string;
+  setIncorrectWord: (value: boolean) => void;
 };
 
 export const useGuessStore = create<State>((set, get) => ({
@@ -20,19 +22,12 @@ export const useGuessStore = create<State>((set, get) => ({
   words: [],
   guesses: [],
   currentGuess: '',
+  incorrectWord: false,
   setWord: (word: string) => set({ word }),
   setWords: (words: string[]) => set({ words }),
   getTodayWordStored: () => getTodayWordStored(get().word),
   addGuess: () => {
-    const { guesses, currentGuess } = get();
-
-    if (currentGuess.length !== WORD_LENGHT) {
-      return;
-    }
-
-    if (guesses.length >= MAX_CHALLENGES) {
-      return;
-    }
+    const { currentGuess } = get();
 
     set(({ guesses }) => ({
       guesses: [...guesses, currentGuess],
@@ -56,5 +51,8 @@ export const useGuessStore = create<State>((set, get) => ({
     }
 
     set(({ currentGuess }) => ({ currentGuess: currentGuess.slice(0, -1) }));
+  },
+  setIncorrectWord: (value: boolean) => {
+    set({ incorrectWord: value });
   },
 }));

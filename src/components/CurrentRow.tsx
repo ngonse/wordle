@@ -4,12 +4,12 @@ import { WORD_LENGHT } from '@/utils';
 import { useGuessStore } from '@/store/guess-store';
 
 const CurrentRow = () => {
-  const { currentGuess } = useGuessStore();
+  const { currentGuess, incorrectWord } = useGuessStore();
 
   const empty = WORD_LENGHT - currentGuess.length;
 
   return (
-    <Row>
+    <Row classes={incorrectWord ? 'jiggle' : ''}>
       {currentGuess.split('').map((val, index) => (
         <Cell key={index} value={val} />
       ))}
