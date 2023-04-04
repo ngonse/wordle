@@ -8,6 +8,7 @@ module.exports = {
         'wordle-correct': 'var(--correct)',
         'wordle-present': 'var(--present)',
         'wordle-absent': 'var(--absent)',
+        'wordle-default': 'var(--default)',
       },
     },
   },

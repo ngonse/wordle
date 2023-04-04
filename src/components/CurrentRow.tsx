@@ -11,7 +11,13 @@ const CurrentRow = () => {
   return (
     <Row classes={incorrectWord ? 'jiggle' : ''}>
       {currentGuess.split('').map((val, index) => (
-        <Cell key={index} value={val} />
+        <Cell
+          key={index}
+          value={val}
+          classes={
+            val && 'border-slate-400 border-2 bg-wordle-default on-key-press'
+          }
+        />
       ))}
 
       {Array.from({ length: empty }, (_, index) => (

@@ -5,6 +5,7 @@ import { useGuessStore } from '@/store/guess-store';
 
 type Props = {
   guess: string;
+  position?: number;
 };
 
 const CompletedRow: React.FC<Props> = ({ guess }) => {
@@ -15,12 +16,15 @@ const CompletedRow: React.FC<Props> = ({ guess }) => {
   return (
     <Row>
       {guess.split('').map((val, index) => {
-        const classes = `${statuses[index] === 'absent' && 'bg-slate-700'}
-        ${statuses[index] === 'present' && 'bg-wordle-present'}
-        ${statuses[index] === 'correct' && 'bg-wordle-correct'}
-        flip cell-reveal`;
+        const classes = `cell-reveal
+        ${statuses[index] === 'absent' && 'bg-slate-700 flip-absent'}
+        ${statuses[index] === 'present' && 'bg-wordle-present flip-present'}
+        ${statuses[index] === 'correct' && 'bg-wordle-correct flip-correct'}
+        `;
 
-        return <Cell key={index} value={val} classes={classes} />;
+        return (
+          <Cell key={index} value={val} classes={classes} position={index} />
+        );
       })}
     </Row>
   );

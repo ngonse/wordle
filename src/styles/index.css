@@ -105,6 +105,48 @@
   }
 }
 
+@keyframes reveal-correct {
+  0% {
+    transform: rotateX(0deg);
+    background-color: var(--default);
+    border-color: var(--default-border);
+    color: var(--default-text-color);
+  }
+  50% {
+    background-color: var(--default);
+    border-color: var(--default-border);
+    color: var(--default-text-color);
+  }
+  50.1% {
+    background-color: var(--correct);
+    border-color: var(--correct);
+  }
+  100% {
+    transform: rotateX(180deg);
+  }
+}
+
+@keyframes reveal-present {
+  0% {
+    transform: rotateX(0deg);
+    background-color: var(--default);
+    border-color: var(--default-border);
+    color: var(--default-text-color);
+  }
+  50% {
+    background-color: var(--default);
+    border-color: var(--default-border);
+    color: var(--default-text-color);
+  }
+  50.1% {
+    background-color: var(--present);
+    border-color: var(--present);
+  }
+  100% {
+    transform: rotateX(180deg);
+  }
+}
+
 @keyframes offsetLetterFlip {
   0% {
     transform: rotateX(0deg);
@@ -125,6 +167,30 @@
   animation-fill-mode: backwards;
 }
 
-.flip {
+.flip-absent {
   animation-name: reveal-absent;
+}
+
+.flip-correct {
+  animation-name: reveal-correct;
+}
+
+.flip-present {
+  animation-name: reveal-present;
+}
+
+@keyframes on-key-press {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  0% {
+    transform: scale(1);
+  }
+}
+
+.on-key-press {
+  animation: on-key-press 0.35s ease-in-out;
 }
