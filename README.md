@@ -6,6 +6,15 @@ Wordle is a popular word-guessing game that challenges players to guess a secret
 
 This repository was created as a personal project to learn and improve skills in React, Next.js, TypeScript, and Tailwind CSS. It is not intended to be a production-ready implementation of Wordle, but rather a learning exercise.
 
+## Stack
+
+The technology stack used in this project includes:
+
+- [React](https://reactjs.org/): a popular JavaScript library for building user interfaces
+- [Next.js](https://nextjs.org/): a framework for building server-side rendered React applications
+- [TypeScript](https://www.typescriptlang.org/): a statically typed superset of JavaScript
+- [Tailwind CSS](https://tailwindcss.com/): a utility-first CSS framework
+
 ## Installation
 
 To install and run Wordle locally, clone this repository:
