@@ -11,7 +11,7 @@ This repository was created as a personal project to learn and improve skills in
 To install and run Wordle locally, clone this repository:
 
 ```bash
-git clone <https://github.com/ngonse/wordle.git>
+git clone https://github.com/ngonse/wordle.git
 ```
 
 Then, navigate to the wordle directory and run the following command to install the necessary dependencies:
