@@ -1,15 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { serialize } from 'cookie';
 import { GetServerSideProps } from 'next';
 
 import { MAX_CHALLENGES, WORD_LENGHT, WORD_OF_THE_DAY_COOKIE } from '@/utils';
 import Grid from '@/components/Grid';
 import Keyboard from '@/components/Keyboard';
-import { getTodayWord } from '@/utils/words';
+import { getTodayWord, getWords } from '@/utils/words';
 import Shell from '@/shells/Shell';
 import { useGuessStore } from '@/store/guess-store';
-
-import words from '@/words.json';
 
 type Props = {
   words: string[];
@@ -104,6 +102,8 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({
   res,
 }) => {
   let wordCokkie = req.cookies[WORD_OF_THE_DAY_COOKIE];
+
+  const words = getWords();
 
   if (!wordCokkie) {
     const todayWord = getTodayWord();

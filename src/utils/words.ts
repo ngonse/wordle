@@ -1,10 +1,12 @@
-import words from '@/words.json';
+import wordsNoAccent from '@/words-no-accent.json';
+
+export const getWords = () => wordsNoAccent;
 
 export const getTodayWord = () => {
-  const quantity = words.length;
+  const quantity = wordsNoAccent.length;
 
   const index = Math.floor(Math.random() * quantity);
-  const word = words[index];
+  const word = wordsNoAccent[index];
 
   return word;
 };
