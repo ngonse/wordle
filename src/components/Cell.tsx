@@ -11,7 +11,7 @@ const Cell: React.FC<Props> = ({
     className={`relative w-full aspect-square flex justify-center items-center ${classes}`}
   >
     <span
-      className={`text-white text-4xl animate-bounce-in transform transition duration-500 ease-in-out hover:rotate-y-180 ${
+      className={`text-white text-4xl animate-bounce-in transform transition duration-500 ease-in-out  ${
         value?.length ? 'opacity-1' : 'opacity-0'
       }`}
     >

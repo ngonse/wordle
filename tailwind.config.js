@@ -5,9 +5,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'wordle-correct': '#5cb85c',
-        'wordle-present': '#f0ad4e',
-        'wordle-absent': '#8a8a8a',
+        'wordle-correct': 'var(--correct)',
+        'wordle-present': 'var(--present)',
+        'wordle-absent': 'var(--absent)',
       },
     },
   },

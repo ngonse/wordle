@@ -17,7 +17,8 @@ const CompletedRow: React.FC<Props> = ({ guess }) => {
       {guess.split('').map((val, index) => {
         const classes = `${statuses[index] === 'absent' && 'bg-slate-700'}
         ${statuses[index] === 'present' && 'bg-wordle-present'}
-        ${statuses[index] === 'correct' && 'bg-wordle-correct'}`;
+        ${statuses[index] === 'correct' && 'bg-wordle-correct'}
+        flip cell-reveal`;
 
         return <Cell key={index} value={val} classes={classes} />;
       })}
